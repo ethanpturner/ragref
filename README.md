@@ -28,7 +28,9 @@ because relevance is not the property under verification.
 
 ## Intent
 
-Every member of a tenant may read every document of that tenant. World-readable documents are
+Every member of a tenant may read every document of that tenant, with one exception: documents
+under `acme/audit/` are readable only by principals holding the `audit` role, because they name
+control owners and open findings. World-readable documents are
 readable by every member of the owning tenant and by no one outside it: the read bit for "other"
 is a statement about the group's members, not about other tenants. Documents under `handover/`
 belong to whichever tenant's group owns the file, one side or the other, never both.
