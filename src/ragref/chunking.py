@@ -51,8 +51,31 @@ def chunk_document(document: Document, size: int) -> list[Chunk]:
     ]
 
 
+#: A trailing chunk shorter than this is folded into the next document's first chunk when both
+#: sit in the same directory, so that no retrieval unit is too short to be useful.
+MIN_TAIL = 140
+
+
 def chunk_documents(documents: list[Document], size: int) -> list[Chunk]:
     out: list[Chunk] = []
     for document in documents:
-        out.extend(chunk_document(document, size))
+        chunks = chunk_document(document, size)
+        if (
+            out
+            and chunks
+            and len(out[-1].text) < MIN_TAIL
+            and out[-1].source_document_ids[-1].rsplit("/", 1)[0] == document.id.rsplit("/", 1)[0]
+        ):
+            tail = out.pop()
+            head = chunks.pop(0)
+            chunks.insert(
+                0,
+                Chunk(
+                    id=tail.id,
+                    source_document_ids=tail.source_document_ids + head.source_document_ids,
+                    text=f"{tail.text}\n\n{head.text}",
+                    entitlement=tail.entitlement,
+                ),
+            )
+        out.extend(chunks)
     return out
