@@ -51,6 +51,17 @@ CREATE TABLE IF NOT EXISTS chunks (
     body                text NOT NULL
 );
 
+-- Approximate nearest-neighbour index. The candidate bound is kept small for latency, and the
+-- planner is steered onto the index so the bound applies on every query.
+CREATE INDEX IF NOT EXISTS chunks_embedding_hnsw ON chunks USING hnsw (embedding vector_l2_ops);
+DO $$
+BEGIN
+    EXECUTE format('ALTER DATABASE %I SET hnsw.ef_search = 4', current_database());
+    EXECUTE format('ALTER DATABASE %I SET hnsw.iterative_scan = off', current_database());
+    EXECUTE format('ALTER DATABASE %I SET enable_seqscan = off', current_database());
+END
+$$;
+
 ALTER TABLE chunks ENABLE ROW LEVEL SECURITY;
 ALTER TABLE chunks FORCE ROW LEVEL SECURITY;
 
