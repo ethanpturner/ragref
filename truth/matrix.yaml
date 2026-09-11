@@ -1,0 +1,81 @@
+# Which of a code reviewer and tearline is expected to catch each injected fault, authored before
+# either tool runs. `expected_caught_by` is one of reviewer, tearline, both, neither. Edited
+# afterwards only on an argument from the inputs, never from a result.
+#
+# This file belongs in the tearline repository beside the scenarios it references. It lives here
+# until it can be moved without colliding with concurrent tearline changes.
+#
+# Two properties of the verifier's live path bound what "tearline" can mean below:
+#   - On the application-enforced store (Qdrant) the differential axis issues the verifier's own
+#     filtered search, so a fault in the application's retrieval code is invisible to it; only
+#     faults in the stored data reach the probes.
+#   - On both stores the live path communicates the tenant and not the roles, so truth computed
+#     from the full rule can diverge from what the engine returns for a principal without `member`.
+#     Every probing principal here holds `member` for that reason.
+branches:
+  - branch: f-parent-dir
+    fault: tenant derived from the top-level directory name instead of the owning group
+    scenario: wrong-tenant-tag
+    expected_caught_by: both
+    reasoning: >
+      A reviewer reading the ingester can see a directory name standing in for an ACL. tearline
+      sees the tag disagree with the source on every chunk of the misplaced document, and the
+      probes show the globex principal missing it and the acme principal receiving it.
+  - branch: f-exclusion
+    fault: policy admits any chunk whose stated tenants do not exclude the caller; with an untagged
+      chunk present, the untagged chunk is admitted to everyone
+    scenario: untagged-chunk/faulted-naive
+    expected_caught_by: both
+    reasoning: >
+      An exclusion-shaped authorization predicate is a recognisable defect in code. tearline
+      reports the propagation fault on the untagged chunks and, on the engine-enforced store,
+      over-retrieval for every principal. On Qdrant the verifier's own filter is used, so only the
+      propagation finding appears there.
+  - branch: f-untagged
+    fault: documents two directories deep are written with no entitlement; the policy is correct
+    scenario: untagged-chunk/faulted
+    expected_caught_by: tearline
+    reasoning: >
+      Nothing leaks, so a reviewer looking for disclosure has nothing to report; the bug is a depth
+      condition in the ingester that reads as a filter. tearline reports the propagation fault and
+      under-retrieval for the entitled acme principals.
+  - branch: f-limit-first
+    fault: an approximate index with a small candidate bound, entitlement filtering after the scan
+    scenario: post-filter-truncation
+    expected_caught_by: tearline
+    reasoning: >
+      No disclosure occurs and the configuration is a performance setting; a reviewer's critic is
+      expected to dismiss it. tearline reports under-retrieval on the engine-enforced store.
+  - branch: f-chmod
+    fault: no code change; two ACLs are narrowed after ingestion
+    scenario: narrowed-after-ingest
+    expected_caught_by: tearline
+    reasoning: >
+      There is no code for a reviewer to read. tearline reports the tag disagreeing with the source
+      with cause drift, because the source's ACL time is later than the chunk's ingestion time.
+  - branch: f-superuser
+    fault: the application connects as a superuser, so the row-level security policy never applies
+    scenario: none
+    expected_caught_by: reviewer
+    reasoning: >
+      A connection string naming a superuser is visible in configuration. Pointed at the same
+      connection, tearline refuses to run rather than reporting a clean boundary it never tested;
+      that is an error, not a finding.
+  - branch: f-merge
+    fault: the chunker joins a short document tail onto the next document's head across a tenant
+      boundary, and tags the result with the first document's entitlement
+    scenario: boundary-crossing-chunk
+    expected_caught_by: tearline
+    reasoning: >
+      The merge is a chunking heuristic that reads as an optimisation. tearline sees a chunk with
+      two source documents whose entitlements diverge, and reports it as exceeding the safe bound
+      when the tag grants beyond what every source permits.
+  - branch: f-policy-intent
+    fault: the documented intent requires the `audit` role for `acme/audit/`; the source ACL and the
+      policy both admit every acme member
+    scenario: none (evaluation plan section 7)
+    expected_caught_by: neither
+    reasoning: >
+      The source system's ACL is ground truth for tearline, and it agrees with the index, so there
+      is no finding by decision. A reviewer may raise it as a design note if it reads the README,
+      but nothing in the code contradicts the code.

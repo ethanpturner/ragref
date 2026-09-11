@@ -1,0 +1,21 @@
+# What the application points at. Read by `ragref` at start-up.
+corpus:
+  root: corpus
+  # POSIX group -> tenant. Supplied, never inferred: the same reasoning as tearline's DEC-020.
+  group_to_tenant:
+    staff: acme
+    admin: globex
+  # The ACL the corpus is meant to carry. Git records neither group ownership nor the read bit
+  # for "other", so `ragref apply-acl` applies this before ingestion.
+  acl_manifest: corpus/acl.yaml
+principals: tearline/shared/principals.yaml
+chunking:
+  size: 420
+pgvector:
+  # The application's own role. It owns the table, so FORCE ROW LEVEL SECURITY binds it too.
+  dsn: postgresql://ragref_app:ragref_app@localhost:5432/ragref_pg
+  # The unprivileged role a verifier reads through. Granted SELECT at schema creation.
+  reader_role: ragref_reader
+qdrant:
+  base_url: http://localhost:6333
+  collection: ragref_chunks

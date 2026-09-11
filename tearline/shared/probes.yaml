@@ -1,0 +1,33 @@
+# Queries and the chunks each should reach. `matches` is authored: relevance is not under test
+# (tearline DEC-011), and the pseudo-embedding carries no meaning, so the relevance set is a
+# statement about the corpus made here rather than by the store. Every probe runs as identities
+# from both tenants so that each exercises the boundary in both directions.
+probes:
+  - id: pr-001
+    query: onboarding accounts equipment and the reading list
+    principals: [p-acme-member, p-globex-member]
+    matches: [c-acme-onboarding-01, c-acme-onboarding-02, c-globex-handbook-01]
+  - id: pr-002
+    query: expense receipts and travel booking
+    principals: [p-acme-member, p-acme-audit, p-globex-member]
+    matches: [c-acme-expenses-01, c-acme-expenses-02, c-globex-pricing-01]
+  - id: pr-003
+    query: audit controls and open findings
+    principals: [p-acme-audit, p-acme-member, p-globex-audit]
+    matches: [c-acme-audit-controls-01, c-acme-audit-findings-2026-01, c-globex-security-policy-01]
+  - id: pr-004
+    query: pricing tiers and partner margins
+    principals: [p-globex-member, p-acme-member]
+    matches: [c-globex-pricing-01, c-globex-pricing-02, c-globex-sales-playbook-01]
+  - id: pr-005
+    query: on-call rotation and incident severity
+    principals: [p-globex-member, p-globex-audit, p-acme-member]
+    matches: [c-globex-oncall-01, c-globex-oncall-02, c-globex-security-policy-03]
+  - id: pr-006
+    query: joint integration tokens reconciliation and milestones
+    principals: [p-acme-member, p-globex-member]
+    matches:
+      - c-handover-acme-integration-notes-01
+      - c-handover-globex-integration-notes-01
+      - c-handover-joint-timeline-01
+      - c-handover-joint-timeline-02

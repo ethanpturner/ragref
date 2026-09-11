@@ -1,0 +1,3 @@
+qdrant: 32 chunks, 0 untraceable, partial=False
+  enforcement site: application -- the boundary was applied by retrieval code, not by the store. A clean result says this query path filtered correctly; it says nothing about any other query path against the same collection, and the store does not require one.
+exit=0

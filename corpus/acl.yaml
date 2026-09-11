@@ -1,0 +1,20 @@
+# The ACL the corpus carries. Applied to the working tree by `ragref apply-acl`, because git
+# records neither group ownership nor the read bit for "other".
+#
+# Groups: `staff` is tenant acme, `admin` is tenant globex (see ragref.yaml). Mode 0644 makes a
+# document world-readable, which the source reads as the `everyone` role; 0640 is `member`.
+files:
+  - { path: acme/onboarding.md,               group: staff, mode: "0644" }
+  - { path: acme/hr-benefits.md,              group: staff, mode: "0644" }
+  - { path: acme/expenses.md,                 group: staff, mode: "0640" }
+  - { path: acme/roadmap.md,                  group: staff, mode: "0640" }
+  - { path: acme/audit/controls.md,           group: staff, mode: "0640" }
+  - { path: acme/audit/findings-2026.md,      group: staff, mode: "0640" }
+  - { path: globex/handbook.md,               group: admin, mode: "0644" }
+  - { path: globex/sales-playbook.md,         group: admin, mode: "0644" }
+  - { path: globex/pricing.md,                group: admin, mode: "0640" }
+  - { path: globex/oncall.md,                 group: admin, mode: "0640" }
+  - { path: globex/security-policy.md,        group: admin, mode: "0640" }
+  - { path: handover/acme-integration-notes.md,   group: staff, mode: "0640" }
+  - { path: handover/globex-integration-notes.md, group: admin, mode: "0640" }
+  - { path: handover/joint-timeline.md,       group: staff, mode: "0644" }

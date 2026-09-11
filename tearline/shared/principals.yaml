@@ -1,0 +1,23 @@
+# Identities the application serves and the verifier probes as. Supplied, never provisioned.
+#
+# Every probing principal holds `member`. The live retrieval path on both stores communicates the
+# tenant and not the roles, so a principal without `member` would register over-retrieval of
+# member-only chunks against a correctly tagged index. That is a property of the verifier's live
+# path, recorded in truth/matrix.yaml, and not a fault this corpus injects.
+principals:
+  - id: p-acme-member
+    label: Acme engineer
+    tenant: acme
+    roles: [member]
+  - id: p-acme-audit
+    label: Acme internal auditor
+    tenant: acme
+    roles: [member, audit]
+  - id: p-globex-member
+    label: Globex engineer
+    tenant: globex
+    roles: [member]
+  - id: p-globex-audit
+    label: Globex internal auditor
+    tenant: globex
+    roles: [member, audit]

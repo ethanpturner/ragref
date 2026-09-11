@@ -1,0 +1,12 @@
+# tearline scan target: the Qdrant collection, verified against the corpus on disk.
+source:
+  kind: filesystem
+  root: ../../corpus
+  group_to_tenant:
+    staff: acme
+    admin: globex
+backend:
+  kind: qdrant
+  base_url: http://localhost:6333
+  collection: ragref_chunks
+enforcement: rule

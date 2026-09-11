@@ -1,0 +1,50 @@
+[project]
+name = "ragref"
+version = "0.1.0"
+description = "Reference RAG application with entitlement filtering and eight injected fault branches, built as a verification target for tearline"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Ethan Turner", email = "ethanpturner@gmail.com" }]
+requires-python = ">=3.14"
+dependencies = [
+    "psycopg[binary]>=3.2",
+    # Configuration and the ACL manifest are YAML, read through `safe_load` only.
+    "pyyaml>=6.0.3",
+]
+
+[project.scripts]
+ragref = "ragref.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.2,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.18.0",
+    "pytest>=8.4.0",
+    "ruff>=0.14.0",
+    "types-pyyaml>=6.0.12",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["--strict-markers", "--strict-config"]
+
+[tool.mypy]
+python_version = "3.14"
+files = ["src", "tests"]
+strict = true
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+disallow_untyped_defs = false
+
+[tool.ruff]
+target-version = "py314"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]

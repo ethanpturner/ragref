@@ -1,0 +1,12 @@
+# How the source system decides whether a principal is entitled to a chunk. Stated by the target,
+# not assumed by the verifier (tearline DEC-012, DEC-021).
+system: posix-filesystem
+rule:
+  # principal.tenant must be in the chunk's tenant set. An empty set restricts.
+  tenant: member
+  # Any shared role admits, and the `everyone` role admits any member of a listed tenant.
+  role: intersects-or-everyone
+  # A principal named directly on the chunk. POSIX mode bits cannot express one, so no document in
+  # this corpus carries a direct grant; the clause is stated so that the rule is complete.
+  direct: principal-listed
+  combine: tenant AND (role OR direct)
