@@ -8,7 +8,7 @@ source:
 backend:
   kind: pgvector
   # An unprivileged role, subject to the policy. The adapter refuses a role that bypasses it.
-  dsn: postgresql://ragref_reader:ragref_reader@localhost:5432/ragref_pg
+  dsn: postgresql://localhost:5432/ragref_pg
   # A role that can read every row, for the inventory comparison. Defaults to the OS user, which
   # on a Homebrew PostgreSQL is the superuser that initialised the cluster.
   admin_dsn: postgresql://localhost:5432/ragref_pg

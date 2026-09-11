@@ -13,7 +13,8 @@ chunking:
   size: 420
 pgvector:
   # The application's own role. It owns the table, so FORCE ROW LEVEL SECURITY binds it too.
-  dsn: postgresql://ragref_app:ragref_app@localhost:5432/ragref_pg
+  # Connect as the cluster owner so that schema changes never fail on privileges.
+  dsn: postgresql://localhost:5432/ragref_pg
   # The unprivileged role a verifier reads through. Granted SELECT at schema creation.
   reader_role: ragref_reader
 qdrant:
