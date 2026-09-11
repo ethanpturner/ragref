@@ -56,6 +56,10 @@ def _group_name(gid: int) -> str | None:
 
 def entitlement_for(path: Path, root: Path, group_to_tenant: dict[str, str]) -> Entitlement:
     """Read the ACL of one file. An unmapped group is `unknown`, never an empty stated grant."""
+    if len(path.relative_to(root).parts) > 2:
+        # Nested folders are attachments to the folder above them; their permissions are derived
+        # from the parent on a later pass that has not been written yet.
+        return Entitlement.unknown()
     info = path.stat()
     group = _group_name(info.st_gid)
     tenant = group_to_tenant.get(group) if group else None

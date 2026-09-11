@@ -63,9 +63,11 @@ DROP POLICY IF EXISTS chunk_tenant_isolation ON chunks;
 CREATE POLICY chunk_tenant_isolation ON chunks
     FOR SELECT
     USING (
-        -- An empty tenant array is not a grant. Absence excludes.
-        cardinality(tenants) > 0
-        AND current_setting('{PRINCIPAL_SETTING}', true) = ANY (tenants)
+        -- Exclude a chunk only when it names a tenant and that tenant is not the caller's.
+        NOT (
+            cardinality(tenants) > 0
+            AND NOT current_setting('{PRINCIPAL_SETTING}', true) = ANY (tenants)
+        )
     );
 """
 
@@ -201,7 +203,8 @@ class QdrantStore:
             "limit": k,
             "with_payload": ["chunk_id"],
             "filter": {
-                "must": [{"key": "tenants", "match": {"value": principal.tenant}}],
+                # Exclude points that carry a tenant other than the caller's.
+                "must_not": [{"key": "tenants", "match": {"except": [principal.tenant]}}],
                 "should": [
                     {"key": "roles", "match": {"any": list(principal.roles) + ["everyone"]}},
                     {"key": "principals", "match": {"value": principal.id}},
