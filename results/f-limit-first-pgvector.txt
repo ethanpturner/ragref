@@ -1,0 +1,16 @@
+pgvector: 32 chunks, 0 untraceable, partial=False
+  enforcement site: engine -- the database evaluated the policy, so retrieval code that omits its filter still cannot read another tenant's rows. What that does not establish is whether the policy expresses the source system's ACL, which is what the propagation findings above address.
+  under-retrieval pr-001/p-acme-member over=[] under=['c-acme-onboarding-01']
+  under-retrieval pr-001/p-globex-member over=[] under=['c-globex-handbook-01']
+  under-retrieval pr-002/p-acme-member over=[] under=['c-acme-expenses-01', 'c-acme-expenses-02']
+  under-retrieval pr-002/p-acme-audit over=[] under=['c-acme-expenses-01', 'c-acme-expenses-02']
+  under-retrieval pr-002/p-globex-member over=[] under=['c-globex-pricing-01']
+  under-retrieval pr-003/p-acme-audit over=[] under=['c-acme-audit-controls-01', 'c-acme-audit-findings-2026-01']
+  under-retrieval pr-003/p-acme-member over=[] under=['c-acme-audit-controls-01', 'c-acme-audit-findings-2026-01']
+  under-retrieval pr-003/p-globex-audit over=[] under=['c-globex-security-policy-01']
+  under-retrieval pr-004/p-globex-member over=[] under=['c-globex-pricing-01', 'c-globex-pricing-02', 'c-globex-sales-playbook-01']
+  under-retrieval pr-005/p-globex-member over=[] under=['c-globex-oncall-01', 'c-globex-oncall-02', 'c-globex-security-policy-03']
+  under-retrieval pr-005/p-globex-audit over=[] under=['c-globex-oncall-01', 'c-globex-oncall-02', 'c-globex-security-policy-03']
+  under-retrieval pr-006/p-acme-member over=[] under=['c-handover-acme-integration-notes-01', 'c-handover-joint-timeline-01', 'c-handover-joint-timeline-02']
+  under-retrieval pr-006/p-globex-member over=[] under=['c-handover-globex-integration-notes-01']
+exit=1

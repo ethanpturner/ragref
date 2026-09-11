@@ -1,0 +1,10 @@
+qdrant: 32 chunks, 0 untraceable, partial=False
+  enforcement site: application -- the boundary was applied by retrieval code, not by the store. A clean result says this query path filtered correctly; it says nothing about any other query path against the same collection, and the store does not require one.
+  contradicted  c-acme-audit-controls-01  cause=propagation-fault
+  contradicted  c-acme-audit-controls-02  cause=propagation-fault
+  contradicted  c-acme-audit-controls-03  cause=propagation-fault
+  contradicted  c-acme-audit-findings-2026-01  cause=propagation-fault
+  contradicted  c-acme-audit-findings-2026-02  cause=propagation-fault
+  under-retrieval pr-003/p-acme-audit over=[] under=['c-acme-audit-controls-01', 'c-acme-audit-findings-2026-01']
+  under-retrieval pr-003/p-acme-member over=[] under=['c-acme-audit-controls-01', 'c-acme-audit-findings-2026-01']
+exit=1

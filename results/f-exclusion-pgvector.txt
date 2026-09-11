@@ -1,0 +1,15 @@
+pgvector: 32 chunks, 0 untraceable, partial=False
+  enforcement site: engine -- the database evaluated the policy, so retrieval code that omits its filter still cannot read another tenant's rows. What that does not establish is whether the policy expresses the source system's ACL, which is what the propagation findings above address.
+  contradicted  c-acme-audit-controls-01  cause=propagation-fault
+  contradicted  c-acme-audit-controls-02  cause=propagation-fault
+  contradicted  c-acme-audit-controls-03  cause=propagation-fault
+  contradicted  c-acme-audit-findings-2026-01  cause=propagation-fault
+  contradicted  c-acme-audit-findings-2026-02  cause=propagation-fault
+  over-retrieval  pr-001/p-globex-member over=['c-acme-audit-controls-01', 'c-acme-audit-controls-02', 'c-acme-audit-controls-03', 'c-acme-audit-findings-2026-01', 'c-acme-audit-findings-2026-02'] under=[]
+  over-retrieval  pr-002/p-globex-member over=['c-acme-audit-controls-01', 'c-acme-audit-controls-02', 'c-acme-audit-controls-03', 'c-acme-audit-findings-2026-01', 'c-acme-audit-findings-2026-02'] under=[]
+  over-retrieval  pr-003/p-globex-audit over=['c-acme-audit-controls-01', 'c-acme-audit-controls-02', 'c-acme-audit-controls-03', 'c-acme-audit-findings-2026-01', 'c-acme-audit-findings-2026-02'] under=[]
+  over-retrieval  pr-004/p-globex-member over=['c-acme-audit-controls-01', 'c-acme-audit-controls-02', 'c-acme-audit-controls-03', 'c-acme-audit-findings-2026-01', 'c-acme-audit-findings-2026-02'] under=[]
+  over-retrieval  pr-005/p-globex-member over=['c-acme-audit-controls-01', 'c-acme-audit-controls-02', 'c-acme-audit-controls-03', 'c-acme-audit-findings-2026-01', 'c-acme-audit-findings-2026-02'] under=[]
+  over-retrieval  pr-005/p-globex-audit over=['c-acme-audit-controls-01', 'c-acme-audit-controls-02', 'c-acme-audit-controls-03', 'c-acme-audit-findings-2026-01', 'c-acme-audit-findings-2026-02'] under=[]
+  over-retrieval  pr-006/p-globex-member over=['c-acme-audit-controls-01', 'c-acme-audit-controls-02', 'c-acme-audit-controls-03', 'c-acme-audit-findings-2026-01', 'c-acme-audit-findings-2026-02'] under=[]
+exit=1

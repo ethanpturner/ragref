@@ -1,0 +1,14 @@
+qdrant: 32 chunks, 0 untraceable, partial=False
+  enforcement site: application -- the boundary was applied by retrieval code, not by the store. A clean result says this query path filtered correctly; it says nothing about any other query path against the same collection, and the store does not require one.
+  contradicted  c-handover-globex-integration-notes-01  cause=propagation-fault
+  contradicted  c-handover-globex-integration-notes-02  cause=propagation-fault
+  over-retrieval  pr-001/p-acme-member over=['c-handover-globex-integration-notes-01', 'c-handover-globex-integration-notes-02'] under=[]
+  over-retrieval  pr-002/p-acme-member over=['c-handover-globex-integration-notes-01', 'c-handover-globex-integration-notes-02'] under=[]
+  over-retrieval  pr-002/p-acme-audit over=['c-handover-globex-integration-notes-01', 'c-handover-globex-integration-notes-02'] under=[]
+  over-retrieval  pr-003/p-acme-audit over=['c-handover-globex-integration-notes-01', 'c-handover-globex-integration-notes-02'] under=[]
+  over-retrieval  pr-003/p-acme-member over=['c-handover-globex-integration-notes-01', 'c-handover-globex-integration-notes-02'] under=[]
+  over-retrieval  pr-004/p-acme-member over=['c-handover-globex-integration-notes-01', 'c-handover-globex-integration-notes-02'] under=[]
+  over-retrieval  pr-005/p-acme-member over=['c-handover-globex-integration-notes-01', 'c-handover-globex-integration-notes-02'] under=[]
+  over-retrieval  pr-006/p-acme-member over=['c-handover-globex-integration-notes-01', 'c-handover-globex-integration-notes-02'] under=[]
+  under-retrieval pr-006/p-globex-member over=[] under=['c-handover-globex-integration-notes-01']
+exit=1

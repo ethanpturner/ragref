@@ -1,0 +1,4 @@
+tearline refused to scan through this connection:
+    raise BypassesRowSecurity(
+tearline.backends.pgvector.BypassesRowSecurity: the connected role bypasses row-level security (superuser or BYPASSRLS), so any isolation this adapter appears to observe would be an artifact of the connection rather than a property of the policy. Connect as an unprivileged role.
+exit=1

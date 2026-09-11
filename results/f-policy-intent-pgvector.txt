@@ -1,0 +1,3 @@
+pgvector: 32 chunks, 0 untraceable, partial=False
+  enforcement site: engine -- the database evaluated the policy, so retrieval code that omits its filter still cannot read another tenant's rows. What that does not establish is whether the policy expresses the source system's ACL, which is what the propagation findings above address.
+exit=0

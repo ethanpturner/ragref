@@ -1,0 +1,24 @@
+qdrant: 30 chunks, 0 untraceable, partial=True
+  enforcement site: application -- the boundary was applied by retrieval code, not by the store. A clean result says this query path filtered correctly; it says nothing about any other query path against the same collection, and the store does not require one.
+  contradicted  c-handover-acme-integration-notes-02  cause=exceeds-safe-bound
+      the tag grants beyond what every source permits. The correct entitlement is still undetermined; that this one is wrong is not.
+  contradicted  c-handover-globex-integration-notes-02  cause=exceeds-safe-bound
+      the tag grants beyond what every source permits. The correct entitlement is still undetermined; that this one is wrong is not.
+  over-retrieval  pr-001/p-acme-member over=['c-handover-acme-integration-notes-02'] under=[]
+  over-retrieval  pr-001/p-globex-member over=['c-handover-globex-integration-notes-02'] under=[]
+  over-retrieval  pr-002/p-acme-member over=['c-handover-acme-integration-notes-02'] under=[]
+  over-retrieval  pr-002/p-acme-audit over=['c-handover-acme-integration-notes-02'] under=[]
+  over-retrieval  pr-002/p-globex-member over=['c-handover-globex-integration-notes-02'] under=[]
+  over-retrieval  pr-003/p-acme-audit over=['c-handover-acme-integration-notes-02'] under=[]
+  over-retrieval  pr-003/p-acme-member over=['c-handover-acme-integration-notes-02'] under=[]
+  over-retrieval  pr-003/p-globex-audit over=['c-handover-globex-integration-notes-02'] under=[]
+  over-retrieval  pr-004/p-globex-member over=['c-handover-globex-integration-notes-02'] under=[]
+  over-retrieval  pr-004/p-acme-member over=['c-handover-acme-integration-notes-02'] under=[]
+  over-retrieval  pr-005/p-globex-member over=['c-handover-globex-integration-notes-02'] under=[]
+  over-retrieval  pr-005/p-globex-audit over=['c-handover-globex-integration-notes-02'] under=[]
+  over-retrieval  pr-005/p-acme-member over=['c-handover-acme-integration-notes-02'] under=[]
+  over-retrieval  pr-006/p-acme-member over=['c-handover-acme-integration-notes-02'] under=[]
+  over-retrieval  pr-006/p-globex-member over=['c-handover-globex-integration-notes-02'] under=[]
+  not-in-index    pr-006/p-acme-member ['c-handover-globex-integration-notes-01', 'c-handover-joint-timeline-01']: the probe names chunks the index does not hold, so it exercised less of the boundary than it describes
+  not-in-index    pr-006/p-globex-member ['c-handover-globex-integration-notes-01', 'c-handover-joint-timeline-01']: the probe names chunks the index does not hold, so it exercised less of the boundary than it describes
+exit=1

@@ -1,0 +1,10 @@
+pgvector: 32 chunks, 0 untraceable, partial=False
+  enforcement site: engine -- the database evaluated the policy, so retrieval code that omits its filter still cannot read another tenant's rows. What that does not establish is whether the policy expresses the source system's ACL, which is what the propagation findings above address.
+  contradicted  c-acme-audit-controls-01  cause=propagation-fault
+  contradicted  c-acme-audit-controls-02  cause=propagation-fault
+  contradicted  c-acme-audit-controls-03  cause=propagation-fault
+  contradicted  c-acme-audit-findings-2026-01  cause=propagation-fault
+  contradicted  c-acme-audit-findings-2026-02  cause=propagation-fault
+  under-retrieval pr-003/p-acme-audit over=[] under=['c-acme-audit-controls-01', 'c-acme-audit-findings-2026-01']
+  under-retrieval pr-003/p-acme-member over=[] under=['c-acme-audit-controls-01', 'c-acme-audit-findings-2026-01']
+exit=1

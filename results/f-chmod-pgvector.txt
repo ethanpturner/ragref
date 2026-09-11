@@ -1,0 +1,17 @@
+pgvector: 32 chunks, 0 untraceable, partial=False
+  enforcement site: engine -- the database evaluated the policy, so retrieval code that omits its filter still cannot read another tenant's rows. What that does not establish is whether the policy expresses the source system's ACL, which is what the propagation findings above address.
+  contradicted  c-acme-onboarding-01  cause=drift
+  contradicted  c-acme-onboarding-02  cause=drift
+  contradicted  c-acme-onboarding-03  cause=drift
+  contradicted  c-handover-joint-timeline-01  cause=drift
+  contradicted  c-handover-joint-timeline-02  cause=drift
+  over-retrieval  pr-001/p-acme-member over=['c-handover-joint-timeline-01', 'c-handover-joint-timeline-02'] under=[]
+  over-retrieval  pr-002/p-acme-member over=['c-handover-joint-timeline-01', 'c-handover-joint-timeline-02'] under=[]
+  over-retrieval  pr-002/p-acme-audit over=['c-handover-joint-timeline-01', 'c-handover-joint-timeline-02'] under=[]
+  over-retrieval  pr-003/p-acme-audit over=['c-handover-joint-timeline-01', 'c-handover-joint-timeline-02'] under=[]
+  over-retrieval  pr-003/p-acme-member over=['c-handover-joint-timeline-01', 'c-handover-joint-timeline-02'] under=[]
+  over-retrieval  pr-004/p-acme-member over=['c-handover-joint-timeline-01', 'c-handover-joint-timeline-02'] under=[]
+  over-retrieval  pr-005/p-acme-member over=['c-handover-joint-timeline-01', 'c-handover-joint-timeline-02'] under=[]
+  over-retrieval  pr-006/p-acme-member over=['c-handover-joint-timeline-01', 'c-handover-joint-timeline-02'] under=[]
+  under-retrieval pr-006/p-globex-member over=[] under=['c-handover-joint-timeline-01', 'c-handover-joint-timeline-02']
+exit=1
