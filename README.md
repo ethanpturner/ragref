@@ -84,8 +84,11 @@ are re-authored if the corpus or the chunk size changes.
 | `f-merge` | the chunker joins a short tail onto the next document's head, across a tenant boundary | boundary-crossing-chunk |
 | `f-policy-intent` | the documented intent requires the `audit` role for `acme/audit/`; neither the source ACL nor the policy expresses it | none by decision; tearline evaluation plan section 7 |
 
-Each branch is one commit off `main`. `truth/matrix.yaml` records, before any tool runs, which
-of a code reviewer and tearline is expected to catch each fault, and why.
+Each branch is one commit off `main`. The truth set recording, before any tool ran, which of a
+code reviewer and tearline is expected to catch each fault lives in tearline at
+`docs/eval/paired-study/matrix.yaml`, beside the scenarios it references; `truth/README.md` here
+points to it. It is not kept in this repository, because a reviewer pointed at the code would
+otherwise be handed the answer key.
 
 ## Licence
 
