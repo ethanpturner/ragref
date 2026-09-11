@@ -54,11 +54,15 @@ def _group_name(gid: int) -> str | None:
         return None
 
 
+#: The corpus is laid out one directory per tenant, so the directory is the tenant. The joint
+#: handover area is administered by Acme.
+DIRECTORY_TENANTS = {"acme": "acme", "globex": "globex", "handover": "acme"}
+
+
 def entitlement_for(path: Path, root: Path, group_to_tenant: dict[str, str]) -> Entitlement:
-    """Read the ACL of one file. An unmapped group is `unknown`, never an empty stated grant."""
+    """Read the ACL of one file. An unmapped directory is `unknown`, never an empty stated grant."""
     info = path.stat()
-    group = _group_name(info.st_gid)
-    tenant = group_to_tenant.get(group) if group else None
+    tenant = DIRECTORY_TENANTS.get(path.relative_to(root).parts[0])
     if tenant is None:
         return Entitlement.unknown()
     role = "everyone" if info.st_mode & WORLD_READABLE else "member"
